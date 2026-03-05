@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secret Warriors — Reading Checklist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080b12;
+      --bg-card: #0e1320;
+      --red: #c8102e;
+      --amber: #c9963a;
+      --text: #c8ccd8;
+      --text-dim: #5a6070;
+      --text-bright: #e8ecf4;
+      --border: #1e2535;
+      --border-bright: #2a3448;
+      --green: #1a6b3c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Courier Prime', monospace;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 15% 0%, rgba(200,16,46,0.09) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 100%, rgba(201,150,58,0.07) 0%, transparent 55%);
+    }
+
+    /* Scanlines */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 48px 48px 36px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red) 25%, var(--amber) 75%, transparent);
+      opacity: 0.35;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .classification {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      background: var(--red);
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      padding: 3px 12px;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    }
+
+    .file-id {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+    }
+
+    .ts-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 6px;
+      color: var(--red);
+      opacity: 0.35;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 9vw, 108px);
+      line-height: 0.88;
+      color: var(--text-bright);
+      letter-spacing: 3px;
+      margin-bottom: 6px;
+    }
+
+    .hero-title span { color: var(--red); }
+
+    .hero-sub {
+      font-size: 11px;
+      letter-spacing: 5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+
+    /* Progress */
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .progress-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      min-width: 180px;
+      height: 2px;
+      background: var(--border);
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--red), var(--amber));
+      width: 0%;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+    }
+
+    .bar-fill::after {
+      content: '';
+      position: absolute;
+      right: 0; top: -3px;
+      width: 6px; height: 8px;
+      background: var(--amber);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      transition: opacity 0.3s;
+    }
+
+    .progress-count {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--text-bright);
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .progress-count em { color: var(--red); font-style: normal; }
+
+    /* ── Controls ── */
+    .controls {
+      padding: 20px 48px;
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .btn {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      padding: 7px 18px;
+      border: 1px solid var(--border-bright);
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    }
+
+    .btn:hover { color: var(--text-bright); border-color: var(--amber); background: rgba(201,150,58,0.05); }
+    .btn.danger:hover { color: var(--red); border-color: var(--red); background: rgba(200,16,46,0.05); }
+
+    /* ── Main ── */
+    .main {
+      padding: 48px 48px 80px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 60px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .op-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: var(--amber);
+      opacity: 0.7;
+      white-space: nowrap;
+    }
+
+    .section-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 4px;
+      color: var(--text-bright);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-bright), transparent);
+    }
+
+    .issue-count {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+      gap: 14px;
+    }
+
+    /* ── Card ── */
+    .comic-card {
+      position: relative;
+      cursor: pointer;
+      display: block;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .comic-card input { display: none; }
+
+    .card-inner {
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+    }
+
+    .comic-card:hover .card-inner {
+      border-color: var(--border-bright);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    }
+
+    .comic-card.checked .card-inner {
+      border-color: rgba(26,107,60,0.35);
+    }
+
+    /* Cover */
+    .cover-wrap {
+      position: relative;
+      aspect-ratio: 2/3;
+      overflow: hidden;
+      background: #0a0f1a;
+    }
+
+    .cover-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.35s;
+    }
+
+    .comic-card.checked .cover-img {
+      filter: grayscale(55%) brightness(0.65);
+    }
+
+    /* Stamp */
+    .stamp {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-18deg) scale(0);
+      width: 78%;
+      padding: 6px 0;
+      border: 3px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .stamp::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border: 1px solid rgba(26,107,60,0.4);
+    }
+
+    .stamp-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 8px;
+      color: var(--green);
+      text-shadow: 0 0 24px rgba(26,107,60,0.6);
+    }
+
+    .comic-card.checked .stamp {
+      transform: translate(-50%, -50%) rotate(-18deg) scale(1);
+      opacity: 0.95;
+    }
+
+    /* Tick */
+    .tick {
+      position: absolute;
+      top: 7px; right: 7px;
+      width: 20px; height: 20px;
+      border: 1.5px solid var(--border-bright);
+      background: rgba(8,11,18,0.75);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .comic-card.checked .tick {
+      border-color: var(--green);
+      background: rgba(26,107,60,0.2);
+    }
+
+    .tick svg {
+      width: 10px; height: 10px;
+      stroke: var(--green);
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.2s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .comic-card.checked .tick svg { opacity: 1; transform: scale(1); }
+
+    /* Info */
+    .comic-info {
+      padding: 10px 10px 12px;
+    }
+
+    .comic-title {
+      font-family: 'Special Elite', cursive;
+      font-size: 9.5px;
+      line-height: 1.45;
+      color: var(--text);
+      margin-bottom: 7px;
+      transition: color 0.2s;
+    }
+
+    .comic-card.checked .comic-title { color: var(--text-dim); }
+
+    .read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .read-link:hover { color: var(--amber); }
+
+    .read-link svg { width: 8px; height: 8px; flex-shrink: 0; }
+
+    /* Optional badge */
+    .optional-badge {
+      position: absolute;
+      top: 7px; left: 7px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: var(--amber);
+      background: rgba(8,11,18,0.82);
+      border: 1px solid rgba(201,150,58,0.4);
+      padding: 2px 6px;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="top-bar">
+    <div class="classification">
+      <div class="badge">Classified</div>
+      <span class="file-id">FILE // HICKMAN-SW-001 // MARVEL 2009–2011</span>
+    </div>
+    <span class="ts-label">Top Secret</span>
+  </div>
+  <div class="hero-title">SECRET<br><span>WARRIORS</span></div>
+  <div class="hero-sub">Jonathan Hickman &mdash; Reading Checklist</div>
+  <div class="progress-row">
+    <span class="progress-label">Mission Progress</span>
+    <div class="bar-wrap"><div class="bar-fill" id="barFill"></div></div>
+    <span class="progress-count"><em id="readCount">0</em>&thinsp;/&thinsp;<span id="totalCount">33</span> issues</span>
+  </div>
+</header>
+
+<div class="controls">
+  <button class="btn" onclick="markAll()">Mark All Read</button>
+  <button class="btn danger" onclick="clearAll()">Reset Progress</button>
+</div>
+
+<main class="main" id="main"></main>
+
+<script>
+const STORAGE_KEY = 'sw-checklist-v1';
+
+const COMICS = [
+  {id:"21211",title:"The Mighty Avengers (2007) #13",group:"Secret Warriors",optional:true,cover:"http://i.annihil.us/u/prod/marvel/i/mg/c/70/58da743ca58ad/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/21211/the_mighty_avengers_2007_13"},
+  {id:"22500",title:"The Mighty Avengers (2007) #20",group:"Secret Warriors",optional:true,cover:"http://i.annihil.us/u/prod/marvel/i/mg/c/70/4d24f2ecc818d/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/22500/the_mighty_avengers_2007_20"},
+  {id:"23004",title:"Dark Reign: New Nation (2008) #1",group:"Prologue",cover:"http://i.annihil.us/u/prod/marvel/i/mg/e/90/5db1d10ac27fd/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/23004/dark_reign_new_nation_2008_1"},
+  {id:"23648",title:"Secret Warriors (2009) #1",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/c/60/51f68aaba7c39/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/23648/secret_warriors_2009_1"},
+  {id:"23812",title:"Secret Warriors (2009) #2",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/c/10/5a8c4e45ba54a/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/23812/secret_warriors_2009_2"},
+  {id:"24002",title:"Secret Warriors (2009) #3",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/f/a0/5a8c58bb6fe5a/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/24002/secret_warriors_2009_3"},
+  {id:"24208",title:"Secret Warriors (2009) #4",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/6/b0/5a8c613ca8955/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/24208/secret_warriors_2009_4"},
+  {id:"26287",title:"Secret Warriors (2009) #5",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/9/40/5a8c663f0b2c6/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/26287/secret_warriors_2009_5"},
+  {id:"26288",title:"Secret Warriors (2009) #6",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/6/e0/4f6752d5872ad/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/26288/secret_warriors_2009_6"},
+  {id:"26289",title:"Secret Warriors (2009) #7",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/c/80/5a8c72aea559c/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/26289/secret_warriors_2009_7"},
+  {id:"26290",title:"Secret Warriors (2009) #8",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/a/10/4f677cf58d50c/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/26290/secret_warriors_2009_8"},
+  {id:"26291",title:"Secret Warriors (2009) #9",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/7/50/4f677e77a5a48/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/26291/secret_warriors_2009_9"},
+  {id:"26283",title:"Secret Warriors (2009) #10",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/4/00/4f67809f03e81/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/26283/secret_warriors_2009_10"},
+  {id:"26284",title:"Secret Warriors (2009) #11",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/7/00/51f68aa198b78/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/26284/secret_warriors_2009_11"},
+  {id:"26285",title:"Secret Warriors (2009) #12",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/1/f0/4f678969265a9/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/26285/secret_warriors_2009_12"},
+  {id:"30174",title:"Secret Warriors (2009) #13",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/9/c0/5a8d7f0c618e5/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30174/secret_warriors_2009_13"},
+  {id:"30175",title:"Secret Warriors (2009) #14",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/7/30/5a8d85635bd78/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30175/secret_warriors_2009_14"},
+  {id:"32559",title:"Secret Warriors (2009) #15",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/4/00/4f6792223f9d3/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/32559/secret_warriors_2009_15"},
+  {id:"30177",title:"Secret Warriors (2009) #16",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/3/c0/5a8d96114784a/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30177/secret_warriors_2009_16"},
+  {id:"30714",title:"Secret Warriors (2009) #17",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/f/e0/5a8d9d81df5cc/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30714/secret_warriors_2009_17"},
+  {id:"30178",title:"Secret Warriors (2009) #18",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/4/50/4f6796327c75c/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30178/secret_warriors_2009_18"},
+  {id:"30179",title:"Secret Warriors (2009) #19",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/4/20/4f6799e4612c3/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30179/secret_warriors_2009_19"},
+  {id:"30180",title:"Secret Warriors (2009) #20",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/f/f0/5a8dae719efd6/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30180/secret_warriors_2009_20"},
+  {id:"30181",title:"Secret Warriors (2009) #21",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/9/70/4f79bef17b050/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30181/secret_warriors_2009_21"},
+  {id:"30182",title:"Secret Warriors (2009) #22",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/3/70/4f79c2b340662/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30182/secret_warriors_2009_22"},
+  {id:"30183",title:"Secret Warriors (2009) #23",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/9/f0/4f79c73bb28c6/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30183/secret_warriors_2009_23"},
+  {id:"27422",title:"Dark Reign: The List \u2014 Secret Warriors (2009) #1",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/2/30/5b5b3caddbc88/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/27422/dark_reign_the_list_-_secret_warriors_2009_1"},
+  {id:"30184",title:"Secret Warriors (2009) #24",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/a/80/4f79c918c68af/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/30184/secret_warriors_2009_24"},
+  {id:"36492",title:"Secret Warriors (2009) #25",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/7/50/51f68a9595f5b/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/36492/secret_warriors_2009_25"},
+  {id:"36491",title:"Secret Warriors (2009) #26",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/2/20/51f68a8968869/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/36491/secret_warriors_2009_26"},
+  {id:"36493",title:"Secret Warriors (2009) #27",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/6/a0/51f68a8062d4f/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/36493/secret_warriors_2009_27"},
+  {id:"36494",title:"Secret Warriors (2009) #28",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/6/a0/51f68a7199ba1/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/36494/secret_warriors_2009_28"},
+  {id:"32930",title:"Siege: Secret Warriors (2010) #1",group:"Secret Warriors",cover:"http://i.annihil.us/u/prod/marvel/i/mg/5/f0/517e8034bd15a/portrait_incredible.jpg",url:"https://www.marvel.com/comics/issue/32930/siege_secret_warriors_2010_1"},
+];
+
+const GROUPS = ['Secret Warriors'];
+const OP_LABELS = {'Secret Warriors':'Op 01'};
+
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+function updateProgress() {
+  const total = COMICS.length;
+  const read = COMICS.filter(c => state[c.id]).length;
+  document.getElementById('readCount').textContent = read;
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('barFill').style.width = (read / total * 100) + '%';
+}
+
+function toggle(id) {
+  state[id] = !state[id];
+  save();
+  document.querySelector(`.comic-card[data-id="${id}"]`).classList.toggle('checked', !!state[id]);
+  updateProgress();
+}
+
+function markAll() {
+  COMICS.forEach(c => { state[c.id] = true; });
+  save();
+  document.querySelectorAll('.comic-card').forEach(el => el.classList.add('checked'));
+  updateProgress();
+}
+
+function clearAll() {
+  state = {};
+  save();
+  document.querySelectorAll('.comic-card').forEach(el => el.classList.remove('checked'));
+  updateProgress();
+}
+
+function render() {
+  const main = document.getElementById('main');
+
+  GROUPS.forEach((group, gi) => {
+    const groupComics = COMICS.filter(c => c.group === group);
+    const section = document.createElement('div');
+    section.className = 'section';
+    section.style.animationDelay = (gi * 0.12 + 0.05) + 's';
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+    header.innerHTML = `
+      <span class="op-label">${OP_LABELS[group]}</span>
+      <span class="section-name">${group}</span>
+      <div class="section-line"></div>
+      <span class="issue-count">${groupComics.length} issue${groupComics.length !== 1 ? 's' : ''}</span>
+    `;
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    groupComics.forEach((comic, ci) => {
+      const isChecked = !!state[comic.id];
+      const card = document.createElement('label');
+      card.className = 'comic-card' + (isChecked ? ' checked' : '');
+      card.dataset.id = comic.id;
+      card.style.animationDelay = (gi * 0.05 + ci * 0.025 + 0.1) + 's';
+
+      card.innerHTML = `
+        <input type="checkbox"${isChecked ? ' checked' : ''}>
+        <div class="card-inner">
+          <div class="cover-wrap">
+            <img class="cover-img" src="${comic.cover}" alt="${comic.title}" loading="lazy">
+            <div class="stamp"><span class="stamp-text">READ</span></div>
+            ${comic.optional ? '<div class="optional-badge">Optional</div>' : ''}
+            <div class="tick">
+              <svg viewBox="0 0 10 8" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4l2.5 2.5L9 1"/>
+              </svg>
+            </div>
+          </div>
+          <div class="comic-info">
+            <div class="comic-title">${comic.title}</div>
+            <a class="read-link" href="${comic.url}" target="_blank" rel="noopener">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M4 2H2a1 1 0 00-1 1v5a1 1 0 001 1h5a1 1 0 001-1V6M6 1h3v3M9 1L5 5"/>
+              </svg>
+              Read Online
+            </a>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        e.preventDefault();
+        toggle(comic.id);
+      });
+
+      grid.appendChild(card);
+    });
+
+    section.appendChild(header);
+    section.appendChild(grid);
+    main.appendChild(section);
+  });
+
+  updateProgress();
+}
+
+render();
+</script>
+</body>
+</html>
